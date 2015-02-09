@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[
+<input type="submit" class="button" value="Submit"/>
+]]></content>
+    <tabTrigger>submit</tabTrigger>
+</snippet>
