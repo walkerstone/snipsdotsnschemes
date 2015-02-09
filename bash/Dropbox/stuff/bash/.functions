@@ -1,0 +1,103 @@
+#! /bin/bash
+
+# backup "<path>"
+# create a new folder in the backups directory and dump the current directory's contents into it
+backup(){
+    local __date=""$(date +"%Y-%m-%d")
+    mkdir "$HOME/backups/$1";
+    mkdir "$HOME/backups/$1/$__date";
+    cp -R . "$HOME/backups/$1/$__date";
+}
+
+# build "thing"
+# "thing" can be blank, 'less' or 'js' to run the appropriate grunt command
+# requires aliases: bs, gd, ld, jd, root
+build(){
+    # bs;
+    if [ $# -eq 0 ]; then
+        gd;
+    elif [ "$1" == "less" ]; then
+        ld;
+    elif [ "$1" == "js" ]; then
+        jd;
+    fi;
+    # root;
+}
+
+# compress "/path/to/dir" "archive.tar"
+# compress a given directory into an archive file
+# hacked from https://github.com/bt3gl/Dotfiles-and-Bash-Examples/blob/master/configs/bashrc
+compress()
+{
+    if [ ! -f $2 ] ; then
+        case $2 in
+            *.tar.bz2)   tar -cjf $2 $1            ;;
+            *.tar.gz)    tar -czf $2 $1            ;;
+            *.gz)        gzip $1; mv "$1.gz" "$2"  ;;
+            *.tar)       tar -cf $2 $1             ;;
+            *.tbz2)      tar -cjf $2 $1            ;;
+            *.tgz)       tar -czf $2 $1            ;;
+            *.zip)       zip -r $2 $1              ;;
+            *)           echo "'$1' cannot be archived via >compress<" ;;
+        esac
+    else
+        echo "'$2' already exists!"
+    fi
+}
+
+# extract "/path/to/file.tar.gz"
+# extract a given archive file
+# from https://github.com/bt3gl/Dotfiles-and-Bash-Examples/blob/master/configs/bashrc
+extract()
+{
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xvjf $1     ;;
+            *.tar.gz)    tar xvzf $1     ;;
+            *.bz2)       bunzip2 $1      ;;
+            *.rar)       unrar x $1      ;;
+            *.gz)        gunzip $1       ;;
+            *.tar)       tar xvf $1      ;;
+            *.tbz2)      tar xvjf $1     ;;
+            *.tgz)       tar xvzf $1     ;;
+            *.zip)       unzip $1        ;;
+            *.Z)         uncompress $1   ;;
+            *.7z)        7z x $1         ;;
+            *)           echo "'$1' cannot be extracted via >extract<" ;;
+        esac
+    else
+        echo "'$1' is not a valid file!"
+    fi
+}
+
+# linode
+# SSH into linode image
+linode(){
+    `putty.exe -ssh -load 'perkz' root@$1 -pw h@EL88crn &`;
+}
+
+# makezip "dir"
+# ZIP the specified directory
+makezip(){
+    zip -r "${1%%/}.zip" "$1" ;
+}
+
+# rd "<path>"
+# remove a directory's contents recursively and then remove the directory
+rd(){
+    rm -rf $1/..?* $1/.[!.]* $1/*;
+    rmdir $1;
+}
+
+# wtc
+# commit all local changes with a message form What The Commit
+wtc() {
+    git add -A .;
+    git commit -m "`curl -s http://whatthecommit.com/index.txt`"
+}
+
+# wtca
+# ammend the previous WTC commit message if you didn't like it before pushing
+wtca() {
+    git commit --amend -m "`curl -s http://whatthecommit.com/index.txt`"
+}

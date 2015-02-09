@@ -1,0 +1,9 @@
+<snippet>
+	<content><![CDATA[
+return "<pre>" . print_r( ${1:var}, true ) . "</pre>";
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>rcp</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.php</scope>
+</snippet>

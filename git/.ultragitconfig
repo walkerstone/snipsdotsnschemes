@@ -1,0 +1,26 @@
+[alias]
+	l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+	a = commit --amend -C HEAD
+	b = "!echo \"current dir: \" && pwd; echo \"current branch: \" && git rev-parse --abbrev-ref HEAD"
+	bd = "!f() { git ch master; git branch -D \"$1\"; }; f"
+	bp = "!f() { git branch -D \"$1\"; git push origin \":$1\"; }; f"
+	ch = "!f() { git fetch; git checkout \"$1\"; }; f"
+	cn = "!f() { git checkout -b \"$1\"; git push -u origin \"$1\"; }; f"
+	cp = "!f() { git checkout \"$1\"; git pull; }; f"
+	dry = "!f() { grep -q 'changed in both' <<< $(git merge-tree $(git merge-base FETCH_HEAD $1) $1 FETCH_HEAD) && echo 'Merge conflict detected' || echo 'Merged cleanly'; }; f"
+	# master = "!git checkout master; git r"
+	master = "!f() { grep -q 'failed' <<< $(git checkout master) && echo 'checkout failed, local directory not clean' || git r; }; f"
+	p = "!f() { git push; }; f"
+	pa = "!f() { git add -A; git commit -am \"$1\"; git pull; git push; }; f"
+	r = "!git remote prune origin; gitprune -D; git clean -f -d; git checkout -- .; git pull"
+	root = "!f() { x=\"$(git rev-parse --show-toplevel)\"; cd \"${x}\"; }; f"
+	s = "!git fetch; git status"
+	ss = status
+	t = "!f() { git tag -a v$1 -m \"$2\"; git push origin v$1; }; f"
+[push]
+	default = simple
+[core]
+	longpaths = true
+	autocrlf = false
+[color]
+	ui = true

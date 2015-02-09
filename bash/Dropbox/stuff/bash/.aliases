@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# bs
+# go to the Bootstrap source directory of the current git tree
+alias bs="cd '${GITROOT}\assets\bootstrap'"
+
+# d
+# open SQLyog SQL GUI
+alias d="/c/Program\ Files/SQLyog/SQLyog.exe &"
+
+# f
+# open WinSCP for FTP access
+alias f="/c/Program\ Files\ \(x86\)/WinSCP/WinSCP.exe &"
+
+# fs "<file>"
+# get total filesize of file/folder in a human readable format
+alias fs="du -hs"
+
+# g
+# launch the GitHub app, because it's diffs are better than terminal or gitk
+alias g="/c/Users/Dan/AppData/Local/Apps/2.0/DVAP9XX6.WE7/G3WCM6D2.3HG/gith..tion_317444273a93ac29_0002.0006_322e607d54d660d4/GitHub.exe &"
+
+# gd
+# build all Bootstrap components
+alias gd="grunt dist"
+
+# jd
+# build Bootstrap JavaScript only
+alias jd="grunt dist-js"
+
+# ld
+# build Bootstrap LESS only
+alias ld="grunt dist-css"
+
+# l
+# prettify ls a bit
+alias l="ls -lA --si --color=auto"
+
+# r
+# reload bash profile to allow use of new aliases without closing shell
+alias r=". ~/.bash_profile"
+
+# root
+# go to the root directory of the current git tree
+alias root="cd '${GITROOT}'"
+
+# vd
+# kill the local Vagrant machine
+alias vd='vagrant destroy'
+
+# vm
+# list any and all running Vagrants
+alias vm='vagrant global-status'
+
+# vs
+# ssh into the running Vagrant box
+alias vs='ssh vagrant@127.0.0.1 -p 2222'
+
+# vu
+# run the local Vagrant machine
+alias vu='vagrant up'
