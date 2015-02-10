@@ -1,0 +1,10 @@
+<snippet>
+    <content><![CDATA[
+<div class="form-group">
+    ${0}
+</div>
+]]></content>
+    <tabTrigger>formGr</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!-- <scope>source.python</scope> -->
+</snippet>
