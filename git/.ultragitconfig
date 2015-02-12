@@ -17,7 +17,7 @@
 	s = "!git fetch; git status"
 	ss = status
 	t = "!f() { git tag -a v$1 -m \"$2\"; git push origin v$1; }; f"
-	update = "!f() { git checkout master; git r; git checkout $1; git merge origin/master; }; f"
+	update = "!f() { if [ $# -eq 0 ]; then bra=`git rev-parse --abbrev-ref HEAD`; else bra=$1; fi; st=`git stash | grep -o -e 'No local changes to save'`; git checkout master; git r; git checkout ${bra}; git merge origin/master; if [ "" != "${st}" ]; then echo "~ Some files were stashed, use 'git apply' to retrieve them"; }; f"
 [push]
 	default = simple
 [core]
