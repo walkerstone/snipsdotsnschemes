@@ -1,0 +1,14 @@
+# server "action"
+# "thing" can be blank, a specific command or alias 'down' to destroy
+server(){
+    if [ "$1" = "down" ]; then
+        action="destroy --force";
+    else
+        action=$1;
+    fi;
+
+    wd=`pwd`;
+    cd ~/Homestead/;
+    vagrant $action;
+    cd ${wd};
+}

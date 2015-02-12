@@ -12,5 +12,6 @@
     cp = "!f() { git checkout "$1"; git pull; }; f" --
     cn = "!f() { git checkout -b \"$1\"; git push -u origin \"$1\"; }; f"
     m = "git checkout master; git r;"
+    update = "!f() { git checkout master; git r; git checkout $1; git merge origin/master; }; f"
 [push]
 	default = simple
