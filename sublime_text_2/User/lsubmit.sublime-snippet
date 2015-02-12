@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[
+{!! Form::submit('${1:name}' ['class' => 'btn btn-default']) !!}
+]]></content>
+    <tabTrigger>lsubmit</tabTrigger>
+</snippet>
