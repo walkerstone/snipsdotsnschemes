@@ -6,7 +6,7 @@
 	plog2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 	br = rev-parse --abbrev-ref HEAD
 	r = "!git clean -f -d; git checkout -- .; git pull"
-	pa = "!f() { git add .; git commit -am \"$1\"; git pull; git push; }; f"
+	pa = "!f() { git add -A; git commit -am \"$1\"; git pull; git push; }; f"
     s = "!git fetch; git status"
     ch = "!f() { git checkout "$1"; }; f" --
     cp = "!f() { git checkout "$1"; git pull; }; f" --
