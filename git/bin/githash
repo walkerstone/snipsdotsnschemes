@@ -1,0 +1,53 @@
+#! /bin/bash
+
+#
+# githash
+#
+# @author     Dan Bennett <http://about.me/d.bennett>
+# @source     https://gist.github.com/Ultrabenosaurus/6f499d25cb6d8f9e2256
+# @license    BSD 3-Clause <http://opensource.org/licenses/BSD-3-Clause>
+#
+
+__short_colour="\e[01;32m";
+__long_colour="\e[1;37m";
+__reset_colour="\e[m";
+
+if [ $# -eq 0 ] ; then
+    __thing=`echo -e ${__short_colour}$(git rev-list --max-count=1 --abbrev-commit HEAD)`;
+    echo -e "${__thing}${__reset_colour}";
+    exit;
+fi;
+
+colour="";
+
+#
+# SEARCH STILL DOESN'T WORK PROPERLY
+# COMMAND SUBSTITUTION IS EVIL AND I HATE IT
+#
+if [ "search" == $1 ] ; then
+    __search=`git branch --contains $2`;
+    echo -e $(echo "${__search}" | grep -o '[^\*]*\*[^\*]*' >> /dev/null && echo -e `git show-branch $2 | sed -r -e "s,(\[)([a-zA-Z0-9]+\])(.*),\\\\${__short_colour}  \1\2\\\\${__long_colour}\3\\\\${__reset_colour},g"` || echo -e "${__long_colour}  hash ${__short_colour}$2 ${__long_colour}not found in the current branch.${__reset_colour}");
+    exit;
+fi;
+
+
+if [ "full" == $1 ] ; then
+    scope=$2;
+    colour="colour";
+else
+    scope=$1
+fi;
+
+if [ "colour" == "$colour" ] ; then
+    __hash=`git rev-list --max-count=1 --abbrev-commit --skip=${scope} HEAD`;
+    __pattern="s/(${__hash}).*/\1/g";
+    __thing=`echo -e ${__short_colour}$(git rev-list --max-count=1 --skip=${scope} HEAD | sed -r -e "${__pattern}")`;
+    __pattern="s/${__hash}(.*)/\1/g";
+    __thing+=`echo -e ${__long_colour}$(git rev-list --max-count=1 --skip=${scope} HEAD | sed -r -e "${__pattern}")`;
+    echo -e "${__thing}${__reset_colour}";
+    exit;
+else
+    __thing=`echo -e ${__short_colour}$(git rev-list --max-count=1 --abbrev-commit --skip=${scope} HEAD)`;
+    echo -e "${__thing}${__reset_colour}";
+    exit;
+fi;

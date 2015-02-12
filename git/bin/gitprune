@@ -1,0 +1,56 @@
+#! /bin/bash
+
+#
+# gitprune
+#
+# @author     trustin <https://stackoverflow.com/users/55808/trustin>
+# @source     http://stackoverflow.com/a/22687460/1734964
+# @license    unknown, but original code was posted publicly with the intention of being used by others
+# @modified   Dan Bennett <http://ultrabenosaurus.ninja>
+#
+# Changes:
+#   Modified for use on Windows Git install.
+#     -V flag of sort was unrecognised, so I removed it
+#     mktemp executable doesn't exist, so I defined a temp directory and filenames
+#     temp files were already cleaned up, added clean up of temp directory
+#
+# Installation:
+#   For best results, place in your Git's bin directory and remove any file extension.
+#
+# Usage:
+#   gitprune      list all branches that exist locally but not on origin, essentially a dry run
+#   gitprune -D   delete all branches that exist locally but not on origin
+#
+
+if [[ "$1" == '-D' ]]; then
+  DELETE=1
+else
+  DELETE=0
+fi
+
+mkdir -p ~/.gitprune/;
+REMOTE_BRANCHES=~/.gitprune/.remotes;
+( [ -e "$REMOTE_BRANCHES" ] || touch "$REMOTE_BRANCHES" );
+LOCAL_BRANCHES=~/.gitprune/.locals;
+( [ -e "$LOCAL_BRANCHES" ] || touch "$LOCAL_BRANCHES" );
+DANGLING_BRANCHES=~/.gitprune/.dangling;
+( [ -e "$DANGLING_BRANCHES" ] || touch "$DANGLING_BRANCHES" );
+
+git for-each-ref --format="%(refname)" refs/remotes/origin/ | \
+  sed 's#^refs/remotes/origin/##' > "$REMOTE_BRANCHES";
+git for-each-ref --format="%(refname)" refs/heads/ | \
+  sed 's#^refs/heads/##' > "$LOCAL_BRANCHES";
+grep -vxF -f "$REMOTE_BRANCHES" "$LOCAL_BRANCHES" | \
+  sort > "$DANGLING_BRANCHES";
+rm -f "$REMOTE_BRANCHES" "$LOCAL_BRANCHES";
+
+if [[ $DELETE -ne 0 ]]; then
+  cat "$DANGLING_BRANCHES" | while read -r B; do
+    git branch -D "$B";
+  done;
+else
+  cat "$DANGLING_BRANCHES";
+fi;
+rm -f "$DANGLING_BRANCHES";
+
+rmdir ~/.gitprune;

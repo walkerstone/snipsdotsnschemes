@@ -70,6 +70,21 @@ extract()
     fi
 }
 
+# laravel "action"
+# 'down' can be passed as shorthand for 'destroy --force'
+laravel(){
+    if [ "$1" == "down" ]; then
+        action="destroy --force";
+    else
+        action=$1;
+    fi;
+
+    wd=`pwd`;
+    cd ~/Documents/GitHub/Homestead/;
+    vagrant $action;
+    cd ${wd};
+}
+
 # linode
 # SSH into linode image
 linode(){
