@@ -17,6 +17,7 @@
 	s = "!git fetch; git status"
 	ss = status
 	t = "!f() { git tag -a v$1 -m \"$2\"; git push origin v$1; }; f"
+	update = "!f() { git checkout master; git r; git checkout $1; git merge origin/master; }; f"
 [push]
 	default = simple
 [core]
