@@ -5,6 +5,7 @@ autoload -Uz server
 alias composer='php ~/composer.phar'
 alias rp='source ~/.zprofile'
 alias hosts='sudo vi /etc/hosts'
+alias seed='composer dump-autoload; php artisan db:seed'
 alias stat='git status'
 alias add='git add -A'
 alias com='git commit -am' --
