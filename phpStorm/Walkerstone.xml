@@ -1,1 +1,33 @@
-/Users/daniel/Library/Preferences/WebIde80/templates/Walkertone.xml
+<templateSet group="Walkerstone">
+  <template name="!!" value="{!! $END$ !!}" description="Blade Expression" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="HTML_TEXT" value="true" />
+      <option name="HTML" value="true" />
+      <option name="PHP" value="true" />
+    </context>
+  </template>
+  <template name="formGr" value="&lt;div class=&quot;form-group&quot;&gt;&#10;    $END$&#10;&lt;/div&gt;" description="Blade Bootstrap Form Group" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="HTML_TEXT" value="true" />
+      <option name="HTML" value="true" />
+      <option name="PHP" value="true" />
+    </context>
+  </template>
+  <template name="linput" value="{!! Form::$TYPE$('$NAME$', null, ['class' =&gt; 'form-control']) !!}$END$" description="Laravel / Blade &amp; Bootstrap Input Field" toReformat="false" toShortenFQNames="true">
+    <variable name="TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="HTML_TEXT" value="true" />
+      <option name="HTML" value="true" />
+      <option name="PHP" value="true" />
+    </context>
+  </template>
+  <template name="lsubmit" value="{!! Form::submit('$NAME$' ['class' =&gt; 'btn btn-default']) !!}$END$" description="Blade Bootstrap Submit Button" toReformat="false" toShortenFQNames="true">
+    <variable name="NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="HTML_TEXT" value="true" />
+      <option name="HTML" value="true" />
+      <option name="PHP" value="true" />
+    </context>
+  </template>
+</templateSet>
