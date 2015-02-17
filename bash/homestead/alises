@@ -8,7 +8,7 @@ alias fs="du -hs"
 alias h='cd ~'
 alias l="ls -lA --si --color=auto"
 
-alias seeder="composer dump-autoload && php artisan db:seed || echo 'Autoload Generation failed'"
+alias seed="composer dump-autoload && php artisan db:seed || echo 'Autoload Generation failed'"
 
 
 function serve() {
