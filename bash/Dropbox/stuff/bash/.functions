@@ -104,6 +104,22 @@ rd(){
     rmdir $1;
 }
 
+# tree
+# list the directory structure with the current location as the top level
+# based on https://gist.github.com/gpupo/c546128385493c71246d
+tree() {
+    if [ ! $# -eq 0 ]; then
+        case $1 in
+            -a)   ls -aR | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/';;
+            -at)  ls -a | grep "/$" | sed -e 's~/$~~' -e 's/^/--/g' -e 's/^/   /' -e 's/-/|/';;
+            -t)   ls | grep "/$" | sed -e 's~/$~~' -e 's/^/--/g' -e 's/^/   /' -e 's/-/|/';;
+            *)    ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/';;
+        esac
+    else
+        ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/';
+    fi;
+}
+
 # wtc
 # commit all local changes with a message form What The Commit
 wtc() {
